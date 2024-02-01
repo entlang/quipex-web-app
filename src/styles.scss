@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.scalableDialog {
+    width: 100%;
+    max-width: 1000px !important;
+    margin: 24px;
+
+}
+
+.scalableDialog .mat-mdc-dialog-content {
+    height: 400px;
+}
+
+mat-form-field.mat-form-field-disabled {
+    cursor: not-allowed !important;
+}
+
+.w-100 {
+    width: 100%;
+}
+

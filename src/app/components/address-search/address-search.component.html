@@ -1,0 +1,40 @@
+<form [formGroup]="form">
+
+    <mat-form-field class="w-100">
+
+        <mat-label>Address Search</mat-label>
+
+        <mat-icon matPrefix>search</mat-icon>
+
+        <input type="search"
+               name="address"
+               spellcheck="false"
+               autocomplete="off"
+               matInput
+               #addressSearchEl
+               [matAutocomplete]="addressSearch"
+               [formControl]="addressSearchCtrl">
+
+        <mat-autocomplete autoActiveFirstOption
+                          #addressSearch="matAutocomplete"
+                          [displayWith]="displayFn"
+                          (optionSelected)="onAddressSelected($event)">
+
+            <mat-option *ngFor="let address of filteredAddresses$ | async"
+                        [value]="address"
+                        [disabled]="address.id === '0'">
+
+                <span class="display-address">
+                    @if(address.id === "0") {
+                    No Search Results...
+                    } @else {
+                    {{ displayFn(address) }}
+                    }
+                </span>
+
+            </mat-option>
+
+        </mat-autocomplete>
+
+    </mat-form-field>
+</form>

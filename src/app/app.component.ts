@@ -1,14 +1,32 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  imports: [CommonModule, RouterOutlet, MatDialogModule, MatButtonModule]
 })
 export class AppComponent {
-  title = 'QuipexWebApp';
+  private dialog = inject(MatDialog);
+  private dialogRef!: MatDialogRef<DialogComponent>;
+
+  openDialog() {
+    this.dialogRef = this.dialog.open(DialogComponent,{
+      panelClass: 'scalableDialog'
+    });
+
+    this.dialogRef.afterClosed().subscribe({
+      next: (result) => console.log(`Dialog result: ${JSON.stringify(result)}`),
+    });
+  }
 }

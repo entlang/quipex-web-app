@@ -1,0 +1,100 @@
+<h2 mat-dialog-title
+    class="dialog-title">{{getDialogTitle(currentStep)}}</h2>
+
+<mat-dialog-content>
+    <ng-container *ngIf="currentStep === dialogStepEnum.GettingStarted">
+        <h1>Welcome to Quipex</h1>
+        <p>Let's kick start your journey with Quipex... </p>
+    </ng-container>
+
+    <ng-container *ngIf="currentStep === dialogStepEnum.BuildingPortfolio">
+        <div class="dialog-content">
+            <div class="dialog-content__info">
+                <h1>Add a building to your portfolio</h1>
+                <p>Follow the prompts to create... </p>
+            </div>
+
+            <form [formGroup]="form">
+                <app-address-search [disabled]="manualAddress"
+                                    (addressSelect)="onAddressSelect($event)">
+                </app-address-search>
+
+                <mat-label class="link"
+                           (click)="onAddressCaptureMethodChange()">
+                    {{manualAddress ? 'Search Address' : 'Enter Manually'}}
+                </mat-label>
+
+                <mat-form-field>
+                    <mat-label>Address Line 1</mat-label>
+                    <input matInput
+                           formControlName="addressLine1"
+                           required>
+                    @if (form.controls.addressLine1.invalid) {
+                    <mat-error>{{getErrorMessage("addressLine1")}}</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Address Line 2</mat-label>
+                    <input matInput
+                           formControlName="addressLine2">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Suburb</mat-label>
+                    <input matInput
+                           formControlName="suburb">
+                    @if (form.controls.suburb.invalid) {
+                    <mat-error>{{getErrorMessage("suburb")}}</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>State</mat-label>
+                    <select matNativeControl
+                            formControlName="state">
+                        <option value=""
+                                selected></option>
+                        <option value="state"
+                                *ngFor="let state of states">{{state}}</option>
+                    </select>
+                    @if (form.controls.state.invalid) {
+                    <mat-error>{{getErrorMessage("state")}}</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Postcode</mat-label>
+                    <input matInput
+                           formControlName="postcode">
+                    @if (form.controls.postcode.invalid) {
+                    <mat-error>{{getErrorMessage("postcode")}}</mat-error>
+                    }
+                </mat-form-field>
+
+            </form>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentStep === dialogStepEnum.Confirm">
+        <p>{{form.controls.addressLine1.value}} {{form.controls.suburb.value}} has been added to your portfolio</p>
+    </ng-container>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <div>
+        <button mat-button
+                *ngIf="currentStep !== dialogStepEnum.GettingStarted"
+                (click)="onBack()">Back</button>
+    </div>
+    <button mat-button
+            color="primary"
+            class="right-item"
+            [disabled]="currentStep === dialogStepEnum.BuildingPortfolio 
+                && ((manualAddress && form.invalid) || (!manualAddress && !addressToRestore))"
+            (click)="onNext()">{{ currentStep === dialogStepEnum.Confirm ?
+        'Confirm' : 'Next'}}
+    </button>
+
+</mat-dialog-actions>

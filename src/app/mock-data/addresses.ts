@@ -1,0 +1,42 @@
+export default [
+  {
+    id: '1',
+    addressLine1: '12-20 Garnet St',
+    addressLine2: 'Unit 5',
+    suburb: 'Rockdale',
+    state: 'NSW',
+    postcode: '2216',
+  },
+  {
+    id: '2',
+    addressLine1: '15 George St',
+    addressLine2: '',
+    suburb: 'Sydney',
+    state: 'NSW',
+    postcode: '2000',
+  },
+  {
+    id: '3',
+    addressLine1: '20 Pitt St',
+    addressLine2: '',
+    suburb: 'Sydney',
+    state: 'NSW',
+    postcode: '2000',
+  },
+  {
+    id: '4',
+    addressLine1: '11 Albert Road',
+    addressLine2: 'Hallam',
+    suburb: 'Melbourne',
+    state: 'VIC',
+    postcode: '3803',
+  },
+  {
+    id: '5',
+    addressLine1: '71 Adam Avenue',
+    addressLine2: 'Hallam',
+    suburb: 'Melbourne',
+    state: 'VIC',
+    postcode: '3803',
+  },
+];
